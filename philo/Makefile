@@ -6,7 +6,7 @@
 #    By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 14:45:35 by lpaixao-          #+#    #+#              #
-#    Updated: 2024/04/21 12:38:13 by lpaixao-         ###   ########.fr        #
+#    Updated: 2024/04/23 16:52:40 by lpaixao-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ SRCS = \
 main.c \
 errors.c \
 philo_utils.c \
-structs.c
+structs.c \
+philosophers.c
 
 OBJS = ${SRCS:.c=.o}
 
