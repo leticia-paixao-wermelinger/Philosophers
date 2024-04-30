@@ -6,7 +6,7 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 16:36:28 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/04/24 16:50:49 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/04/30 18:02:56 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,32 +19,44 @@ void	philos(t_rules *rules)
 	i = 1;
 	while (i <= rules->philos)
 	{
-		create_philo(rules);
+		if (create_philo(rules) == ERROR)
+			break ;
 		i++;
 	}
-	i = 1;
-	printf("Apos todas as threads, arr de philos:\n");
-	while (i <= rules->philos)
+	i = 0;
+	while (i < rules->philos)
 	{
-		printf("Thread %i tem valor %i\n", i, rules->arr_philos[i - 1]);
+		pthread_join(rules->arr_philos[i].ph, NULL);
 		i++;
 	}
 }
 
-void	create_philo(t_rules *rules)
+int	create_philo(t_rules *rules)
 {
-	pthread_t	philosopher;
 	static int	i = 0;
+	int			verification;
 
+	verification = 0;
 	printf("Vai criar thread %d\n", (i + 1));
-	rules->arr_philos[i] = pthread_create(&philosopher, NULL, (void *)run_philo, rules);
+	verification = pthread_create(&rules->arr_philos[i].ph, NULL, (void *)run_philo, &rules->arr_philos[i]);
+	if (verification != 0)
+		return (ERROR);
+	rules->arr_philos[i].i = i;
 	i++;
-	pthread_join(philosopher, NULL);
+	return (NO_ERROR);
 }
 
-void	*run_philo(t_rules *rules)
+void	*run_philo(void *philo)
 {
+	t_philo *ph;
+	ph = (t_philo *)philo;
+	if (ph->i % 2 != 0)
+		usleep(200);
 	printf("Rodando thread\n");
-	(void)rules;
+//	eat(philo);
+	/*
+	think
+	sleep
+	*/
 	return (NULL);
 }

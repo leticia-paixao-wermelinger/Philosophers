@@ -6,7 +6,7 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 11:15:50 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/04/23 17:04:08 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/04/30 18:10:10 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ int	main(int ac, char *av[])
 		return (ERROR);
 	if (check_inputs(av) != NO_ERROR)
 		return (ERROR);
-	printf("Passou pelas validações de erro\n");
+//	printf("Passou pelas validações de erro\n");
 	set_rules(ac, av, &rules);
 	philos(&rules);
+//	print_philos(&rules);
+	clear_all(&rules);
 }
