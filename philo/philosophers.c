@@ -6,7 +6,7 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 16:36:28 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/05/01 02:38:30 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/05/01 20:49:41 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	check_death(t_rules *rules)
 	{
 		while (i < rules->philos)
 		{
-			if (rules->arr_philos[i]->dead == DEAD)
+			if (rules->arr_philos[i].dead == DEAD)
 				rules->dead_flag = DEAD;
 			i++;
 		}
