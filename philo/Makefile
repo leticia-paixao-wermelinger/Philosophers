@@ -6,7 +6,7 @@
 #    By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 14:45:35 by lpaixao-          #+#    #+#              #
-#    Updated: 2024/04/23 16:52:40 by lpaixao-         ###   ########.fr        #
+#    Updated: 2024/05/01 01:55:09 by lpaixao-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,24 +19,25 @@ NAME = philo
 
 CC = cc
 
-FLAGS = -Wall -Wextra -Werror -g -pthread
+FLAGS = -Wall -Wextra -Werror -g -pthread -fsanitize=address
 
 SRCS = \
 main.c \
 errors.c \
 philo_utils.c \
 structs.c \
-philosophers.c
+philosophers.c \
+actions.c
 
 OBJS = ${SRCS:.c=.o}
 
-PHILOS = 5
+PHILOS = 6
 
-DIE = 9
+DIE = 50000
 
-EAT = 5
+EAT = 20000
 
-SLEEP = 6
+SLEEP = 30000
 
 NUMBERS = $(PHILOS) $(DIE) $(EAT) $(SLEEP)
 

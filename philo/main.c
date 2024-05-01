@@ -6,7 +6,7 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 11:15:50 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/04/30 18:10:10 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/05/01 01:56:27 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	main(int ac, char *av[])
 		return (ERROR);
 //	printf("Passou pelas validações de erro\n");
 	set_rules(ac, av, &rules);
+//	printf("microsegundos: %ld\n", rules.current_time.tv_usec);
 	philos(&rules);
 //	print_philos(&rules);
 	clear_all(&rules);
