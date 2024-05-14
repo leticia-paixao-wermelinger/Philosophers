@@ -6,7 +6,7 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 16:36:28 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/05/01 20:49:41 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:21:42 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	philos(t_rules *rules)
 		pthread_join(rules->arr_philos[i].ph, NULL);
 		i++;
 	}
-	check_death(rules);
+	check_general_death(rules);
 }
 
 int	create_philo(t_rules *rules)
@@ -38,7 +38,6 @@ int	create_philo(t_rules *rules)
 	int			verification;
 
 	verification = 0;
-	printf("Vai criar thread %d\n", (i + 1));
 	verification = pthread_create(&rules->arr_philos[i].ph, NULL, (void *)run_philo, &rules->arr_philos[i]);
 	if (verification != 0)
 		return (ERROR);
@@ -56,15 +55,35 @@ void	*run_philo(void *philo)
 	{
 		if (ph->i % 2 != 0)
 			usleep(200);
-		printf("Rodando thread de philosopher %d\n", ph->i);
+		if (ph->rules->dead_flag == DEAD)
+			return NULL;
 		go_eat(philo);
+		if (ph->rules->dead_flag == DEAD)
+			return NULL;
 		go_sleep(philo);
+		if (ph->rules->dead_flag == DEAD)
+			return NULL;
 		go_think(philo);
+		if (ph->rules->dead_flag == DEAD)
+			return NULL;
 	}
 	return (NULL);
 }
 
-void	check_death(t_rules *rules)
+int	check_death(t_philo philo) // P mim tinha q receber o philo ponteiro aqui, por causa do muttex da print_msg, mas a função não está aceitando....
+{
+	struct timeval  current_time;
+
+	gettimeofday(&current_time, NULL);
+	if (current_time.tv_usec - philo.time_eaten < philo.rules->dying_time)
+	{
+		print_msg(current_time.tv_usec, philo.i, "died", &philo);
+		return (DEAD);
+	}
+	return (ALIVE);
+}
+
+void	check_general_death(t_rules *rules)
 {
 	int	i;
 
@@ -73,8 +92,11 @@ void	check_death(t_rules *rules)
 	{
 		while (i < rules->philos)
 		{
-			if (rules->arr_philos[i].dead == DEAD)
+			if (check_death(rules->arr_philos[i]) == DEAD)
+			{
 				rules->dead_flag = DEAD;
+				return ;
+			}
 			i++;
 		}
 		i = 0;

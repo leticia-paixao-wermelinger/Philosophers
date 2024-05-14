@@ -6,7 +6,7 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 16:25:43 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/05/01 02:44:58 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:38:22 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ void	set_philo_prop(t_rules *rules)
 		rules->arr_philos[i].i = 0;
 //		rules->arr_philos[i].check_lock = 0;
 		rules->arr_philos[i].time_eaten = 0;
-		rules->arr_philos[i].dead = 0;
+//		rules->arr_philos[i].dead = 0;
 		rules->arr_philos[i].rules = rules;
 		pthread_mutex_init(&rules->arr_philos[i].fork, NULL);
+		pthread_mutex_init(&rules->arr_philos[i].go_print, NULL);
 		i++;
 	}
 }

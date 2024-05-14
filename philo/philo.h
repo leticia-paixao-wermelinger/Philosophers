@@ -6,7 +6,7 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 11:15:44 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/05/01 02:42:33 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:18:18 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ typedef struct	s_philo
 	int				i;
 	t_rules			*rules;
 	long int		time_eaten;
-	int				dead;
+	pthread_mutex_t	go_print;
+//	int				dead;
 }	t_philo;
 
 typedef struct	s_rules
@@ -71,5 +72,7 @@ void		clear_all(t_rules *rules);
 void		go_eat(t_philo *philo);
 void		go_sleep(t_philo *philo);
 void		go_think(t_philo *philo);
-void		check_death(t_rules *rules);
+void		check_general_death(t_rules *rules);
+int			check_death(t_philo philo);
+void		print_msg(long int current_time, int i, char *str, t_philo *philo);
 #endif

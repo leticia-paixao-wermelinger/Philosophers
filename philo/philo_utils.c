@@ -6,7 +6,7 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 00:14:59 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/04/21 12:53:24 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:16:53 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,11 @@ void	my_bzero(void *s, size_t n)
 		str++;
 		n--;
 	}
+}
+
+void	print_msg(long int current_time, int i, char *str, t_philo *philo)
+{
+	pthread_mutex_lock(&philo->go_print);
+	printf("%ld %i %s\n", current_time, i, str);
+	pthread_mutex_unlock(&philo->go_print);
 }
