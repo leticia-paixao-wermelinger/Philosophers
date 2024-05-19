@@ -6,7 +6,7 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 16:25:43 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/05/14 15:38:22 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/05/19 20:21:37 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,29 @@ void	set_rules(int ac, char *av[], t_rules *rules)
 	rules->sleeping_time = my_atoi(av[4]);
 	if (ac == 6)
 		rules->n_times_to_eat = my_atoi(av[5]);
+	else
+		rules->n_times_to_eat = ERROR;
+	pthread_mutex_init(&rules->go_print, NULL);
 	rules->dead_flag = ALIVE;
-//	gettimeofday(&rules->current_time, NULL);
+	rules->nbr_ph_full = rules->philos;
+	pthread_mutex_init(&rules->died, NULL);
+	pthread_mutex_init(&rules->count_philos, NULL);
 }
 
 void	set_philo_prop(t_rules *rules)
 {
-	int	i;
+	int				i;
 
 	i = 0;
 	while (i < rules->philos)
 	{
 		rules->arr_philos[i].i = 0;
-//		rules->arr_philos[i].check_lock = 0;
-		rules->arr_philos[i].time_eaten = 0;
-//		rules->arr_philos[i].dead = 0;
+		rules->arr_philos[i].time_eaten = get_time_now();
 		rules->arr_philos[i].rules = rules;
 		pthread_mutex_init(&rules->arr_philos[i].fork, NULL);
-		pthread_mutex_init(&rules->arr_philos[i].go_print, NULL);
+		rules->arr_philos[i].ate_n_times = 0;
+		rules->arr_philos[i].finished = ALIVE;
+		pthread_mutex_init(&rules->arr_philos[i].mutex_eaten_times, NULL);
 		i++;
 	}
 }
@@ -66,8 +71,12 @@ void	clear_all(t_rules *rules)
 	while (i < rules->philos)
 	{
 		pthread_mutex_destroy(&rules->arr_philos[i].fork);
+		pthread_mutex_destroy(&rules->arr_philos[i].mutex_eaten_times);
 		i++;
 	}
+	pthread_mutex_destroy(&rules->go_print);
+	pthread_mutex_destroy(&rules->died);
+	pthread_mutex_destroy(&rules->count_philos);
 	free(rules->arr_philos);
 	rules->arr_philos = NULL;
 }

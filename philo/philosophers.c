@@ -6,7 +6,7 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 16:36:28 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/05/14 16:21:42 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/05/19 15:50:41 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,29 +55,28 @@ void	*run_philo(void *philo)
 	{
 		if (ph->i % 2 != 0)
 			usleep(200);
-		if (ph->rules->dead_flag == DEAD)
+		if (check_flag(ph->rules) != ALIVE)
 			return NULL;
 		go_eat(philo);
-		if (ph->rules->dead_flag == DEAD)
+		if (check_eaten_times(philo) == FULL)
+			return NULL;
+		if (check_flag(ph->rules) != ALIVE)
 			return NULL;
 		go_sleep(philo);
-		if (ph->rules->dead_flag == DEAD)
+		if (check_flag(ph->rules) != ALIVE)
 			return NULL;
 		go_think(philo);
-		if (ph->rules->dead_flag == DEAD)
+		if (check_flag(ph->rules) != ALIVE)
 			return NULL;
 	}
 	return (NULL);
 }
 
-int	check_death(t_philo philo) // P mim tinha q receber o philo ponteiro aqui, por causa do muttex da print_msg, mas a função não está aceitando....
+int	check_death(t_philo *philo)
 {
-	struct timeval  current_time;
-
-	gettimeofday(&current_time, NULL);
-	if (current_time.tv_usec - philo.time_eaten < philo.rules->dying_time)
+	if ((get_time_now() - philo->time_eaten >= philo->rules->dying_time) && philo->finished != FULL)
 	{
-		print_msg(current_time.tv_usec, philo.i, "died", &philo);
+		print_msg(get_time_now(), "died", philo, DIED);
 		return (DEAD);
 	}
 	return (ALIVE);
@@ -88,15 +87,23 @@ void	check_general_death(t_rules *rules)
 	int	i;
 
 	i = 0;
-	while (1)
+	while (rules->dead_flag != FULL)
 	{
 		while (i < rules->philos)
 		{
-			if (check_death(rules->arr_philos[i]) == DEAD)
+			pthread_mutex_lock(&rules->died);
+			if (check_death(&(rules->arr_philos[i])) == DEAD)
 			{
 				rules->dead_flag = DEAD;
 				return ;
 			}
+			if (rules->dead_flag == FULL)
+			{
+				pthread_mutex_unlock(&rules->died);
+				clear_all(rules);
+				return ;
+			}
+			pthread_mutex_unlock(&rules->died);
 			i++;
 		}
 		i = 0;

@@ -6,7 +6,7 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 00:14:59 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/05/14 16:16:53 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/05/19 16:19:51 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,26 @@ void	my_bzero(void *s, size_t n)
 	}
 }
 
-void	print_msg(long int current_time, int i, char *str, t_philo *philo)
+void	print_msg(long int current_time, char *str, t_philo *philo, int	status)
 {
-	pthread_mutex_lock(&philo->go_print);
-	printf("%ld %i %s\n", current_time, i, str);
-	pthread_mutex_unlock(&philo->go_print);
+	pthread_mutex_lock(&philo->rules->go_print);
+	if (status == EATING)
+		printf("\033[0;32m");
+	else if(status == SLEEPING)
+		printf("\033[0;34m");
+	else if (status == THINKING)
+		printf("\033[0;33m");
+	else if (status == DIED)
+		printf("\033[0;31m");
+	printf("%ld %i %s\n", current_time, philo->i, str);
+	printf("\033[0m");
+	pthread_mutex_unlock(&philo->rules->go_print);
+}
+
+void	print_test(long int current_time, char *str, t_philo *philo, int extra)
+{
+	pthread_mutex_lock(&philo->rules->go_print);
+	printf("%ld %i %s %i\n", current_time, philo->i, str, extra);
+	printf("\033[0m");
+	pthread_mutex_unlock(&philo->rules->go_print);
 }

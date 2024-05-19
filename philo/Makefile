@@ -6,20 +6,21 @@
 #    By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 14:45:35 by lpaixao-          #+#    #+#              #
-#    Updated: 2024/05/01 20:31:48 by lpaixao-         ###   ########.fr        #
+#    Updated: 2024/05/19 15:22:18 by lpaixao-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 COLOUR_GREEN=\033[0;32m
 COLOUR_RED=\033[0;31m
 COLOUR_BLUE=\033[0;34m
+COLOUR_YELLOW=\033[0;33m
 COLOUR_END=\033[0m
 
 NAME = philo
 
 CC = cc
 
-FLAGS = -Wall -Wextra -Werror -g -pthread -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -g -pthread -o3
 
 SRCS = \
 main.c \
@@ -27,17 +28,18 @@ errors.c \
 philo_utils.c \
 structs.c \
 philosophers.c \
-actions.c
+actions.c \
+philo_utils2.c
 
 OBJS = ${SRCS:.c=.o}
 
 PHILOS = 5
 
-DIE = 50000
+DIE = 800
 
-EAT = 20000
+EAT = 200
 
-SLEEP = 30000
+SLEEP = 200
 
 NUMBERS = $(PHILOS) $(DIE) $(EAT) $(SLEEP)
 
