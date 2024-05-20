@@ -6,7 +6,7 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 16:25:43 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/05/19 20:21:37 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/05/20 13:51:14 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	set_philo_prop(t_rules *rules)
 		i++;
 	}
 }
-
+/*
 void	print_philos(t_rules *rules)
 {
 	int	i;
@@ -58,10 +58,12 @@ void	print_philos(t_rules *rules)
 	{
 		printf("Filófoso %d:\n", rules->arr_philos[i].i);
 		printf("Identificador da thread: %ld\n", (long)rules->arr_philos[i].ph);
-		printf("Identificador do mutex: %p\n", (void*)&rules->arr_philos[i].fork);
+		printf("Identificador do mutex: %p\n", \
+				(void*)&rules->arr_philos[i].fork);
 		i++;
 	}
 }
+*/
 
 void	clear_all(t_rules *rules)
 {

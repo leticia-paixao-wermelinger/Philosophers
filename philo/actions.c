@@ -6,11 +6,15 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:26:35 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/05/19 20:22:15 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/05/20 14:00:43 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+/*
+ * usleep is in microseconds, input is in miliseconds
+*/
 
 void	go_eat(t_philo *philo)
 {
@@ -32,7 +36,7 @@ void	go_eat(t_philo *philo)
 	philo->time_eaten = get_time_now();
 	print_msg(philo->time_eaten, "is eating", philo, EATING);
 	philo->ate_n_times++;
-	usleep(philo->rules->eating_time * 1000);// usleep is in microseconds, input is in miliseconds
+	usleep(philo->rules->eating_time * 1000);
 	pthread_mutex_unlock(&philo->fork);
 	pthread_mutex_unlock(&next->fork);
 }
@@ -46,5 +50,4 @@ void	go_sleep(t_philo *philo)
 void	go_think(t_philo *philo)
 {
 	print_msg(get_time_now(), "is thinking", philo, THINKING);
-	//Setar um tempo de usleep
 }

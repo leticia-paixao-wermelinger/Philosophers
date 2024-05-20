@@ -6,7 +6,7 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 11:15:44 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/05/19 20:20:27 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/05/20 14:04:13 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,15 @@ enum e_status {
 	EATING = 3,
 	SLEEPING = 4,
 	THINKING = 5,
-	DIED = 6, 
+	DIED = 6,
 	FULL = 7,
 	EMPTY = 8,
 };
-/*
-enum e_colors {
-	GREEN = \033[0;32m,
-}*/
 
-typedef	pthread_mutex_t t_mutex;
-typedef struct  s_rules t_rules;
+typedef pthread_mutex_t	t_mutex;
+typedef struct s_rules	t_rules;
 
-typedef struct	s_philo
+typedef struct s_philo
 {
 	pthread_t	ph;
 	t_mutex		fork;
@@ -55,7 +51,7 @@ typedef struct	s_philo
 	t_mutex		mutex_eaten_times;
 }	t_philo;
 
-typedef struct	s_rules
+typedef struct s_rules
 {
 	int			philos;
 	t_philo		*arr_philos;
@@ -84,7 +80,6 @@ void		philos(t_rules *rules);
 int			create_philo(t_rules *rules);
 void		*run_philo(void *philo);
 void		declare_philo(t_philo *philo);
-void		print_philos(t_rules *rules);
 void		eat(t_philo *philo);
 void		clear_all(t_rules *rules);
 void		go_eat(t_philo *philo);
@@ -95,6 +90,6 @@ int			check_death(t_philo *philo);
 int			check_flag(t_rules *rules);
 long int	get_time_now(void);
 int			check_eaten_times(t_philo *philo);
-void		print_msg(long int current_time, char *str, t_philo *philo, int status);
-void		print_test(long int current_time, char *str, t_philo *philo, int extra);
+void		print_msg(long int current_time, char *str, \
+			t_philo *philo, int status);
 #endif

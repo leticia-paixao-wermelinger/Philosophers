@@ -6,7 +6,7 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 16:36:28 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/05/19 15:50:41 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/05/20 13:49:58 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	create_philo(t_rules *rules)
 	int			verification;
 
 	verification = 0;
-	verification = pthread_create(&rules->arr_philos[i].ph, NULL, (void *)run_philo, &rules->arr_philos[i]);
+	verification = pthread_create(&rules->arr_philos[i].ph, NULL, \
+			(void *)run_philo, &rules->arr_philos[i]);
 	if (verification != 0)
 		return (ERROR);
 	rules->arr_philos[i].i = i + 1;
@@ -48,7 +49,7 @@ int	create_philo(t_rules *rules)
 
 void	*run_philo(void *philo)
 {
-	t_philo *ph;
+	t_philo	*ph;
 
 	ph = (t_philo *)philo;
 	while (ph->rules->dead_flag == ALIVE)
@@ -56,25 +57,26 @@ void	*run_philo(void *philo)
 		if (ph->i % 2 != 0)
 			usleep(200);
 		if (check_flag(ph->rules) != ALIVE)
-			return NULL;
+			return (NULL);
 		go_eat(philo);
 		if (check_eaten_times(philo) == FULL)
-			return NULL;
+			return (NULL);
 		if (check_flag(ph->rules) != ALIVE)
-			return NULL;
+			return (NULL);
 		go_sleep(philo);
 		if (check_flag(ph->rules) != ALIVE)
-			return NULL;
+			return (NULL);
 		go_think(philo);
 		if (check_flag(ph->rules) != ALIVE)
-			return NULL;
+			return (NULL);
 	}
 	return (NULL);
 }
 
 int	check_death(t_philo *philo)
 {
-	if ((get_time_now() - philo->time_eaten >= philo->rules->dying_time) && philo->finished != FULL)
+	if ((get_time_now() - philo->time_eaten >= philo->rules->dying_time) \
+			&& philo->finished != FULL)
 	{
 		print_msg(get_time_now(), "died", philo, DIED);
 		return (DEAD);
