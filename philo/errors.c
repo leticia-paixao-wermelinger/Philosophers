@@ -6,7 +6,7 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:45:34 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/04/20 15:05:03 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:28:02 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_inputs(char *av[])
 			return (ERROR);
 		if (is_pos(av[i]) == ERROR)
 			return (ERROR);
-		if (is_int(av[i]) == ERROR)
+		if (is_long_int(av[i]) == ERROR)
 			return (ERROR);
 		i++;
 	}
@@ -51,14 +51,14 @@ int	is_pos(char *str)
 	return (NO_ERROR);
 }
 
-int	is_int(char *str)
+int	is_long_int(char *str)
 {
-	long int	n;
+	long long int	n;
 
 	if (my_strlen(str) > 11)
 		return (ERROR);
-	n = my_atol(str);
-	if (n > INT_MAX || n < INT_MIN)
+	n = my_atoll(str);
+	if (n > LONG_MAX || n < LONG_MIN)
 		return (ERROR);
 	return (NO_ERROR);
 }

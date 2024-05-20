@@ -6,7 +6,7 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 16:36:28 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/05/20 13:49:58 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:57:10 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ void	philos(t_rules *rules)
 	{
 		pthread_join(rules->arr_philos[i].ph, NULL);
 		i++;
+	}
+	if (rules->philos == 1)
+	{
+		print_msg(get_time_now(), "died", &(rules->arr_philos[0]), DIED);
+		return ;
 	}
 	check_general_death(rules);
 }
@@ -52,6 +57,8 @@ void	*run_philo(void *philo)
 	t_philo	*ph;
 
 	ph = (t_philo *)philo;
+	if (ph->rules->philos == 1)
+		return (NULL);
 	while (ph->rules->dead_flag == ALIVE)
 	{
 		if (ph->i % 2 != 0)

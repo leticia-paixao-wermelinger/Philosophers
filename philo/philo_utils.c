@@ -6,17 +6,17 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 00:14:59 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/05/20 13:58:59 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:21:17 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long int	my_atol(const char *nptr)
+long long int	my_atoll(const char *nptr)
 {
-	int			sign;
-	long int	n;
-	int			i;
+	int				sign;
+	long long int	n;
+	int				i;
 
 	sign = 1;
 	n = 0;

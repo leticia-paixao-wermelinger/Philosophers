@@ -6,7 +6,7 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 11:15:50 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/05/20 14:04:35 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:17:13 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 /*
 	ac == 2 -> number of philosophers;
-	ac == 3 -> time_to_die;
-	ac == 4 -> time_to_eat;
-	ac == 5 -> time_to_sleep;
+	ac == 3 -> time_to_die (milliseconds);
+	ac == 4 -> time_to_eat (milliseconds);
+	ac == 5 -> time_to_sleep (milliseconds);
 	(OPTIONAL) ac == 6 -> number_of_times_each_philosopher_must_eat;
 */
 
@@ -26,9 +26,17 @@ int	main(int ac, char *av[])
 
 	my_bzero(&rules, sizeof(t_rules));
 	if (ac < 5 || ac > 6)
+	{
+		printf("\033[0;31m Please, insert a valid input. \033[0m \n");
 		return (ERROR);
+	}
 	if (check_inputs(av) != NO_ERROR)
+	{
+		printf("\033[0;31mPlease, insert only numeric positive arguments:\n");
+		printf("number_of_philosophers time_to_die time_to_eat time_to_sleep");
+		printf("[number_of_times_each_philosopher_must_eat]\033[0m \n");
 		return (ERROR);
+	}
 	set_rules(ac, av, &rules);
 	philos(&rules);
 	clear_all(&rules);

@@ -6,7 +6,7 @@
 #    By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 14:45:35 by lpaixao-          #+#    #+#              #
-#    Updated: 2024/05/19 15:22:18 by lpaixao-         ###   ########.fr        #
+#    Updated: 2024/05/20 14:38:36 by lpaixao-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ NAME = philo
 
 CC = cc
 
-FLAGS = -Wall -Wextra -Werror -g -pthread -o3
+FLAGS = -Wall -Wextra -Werror -g -pthread
 
 SRCS = \
 main.c \
