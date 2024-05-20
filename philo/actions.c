@@ -6,7 +6,7 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:26:35 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/05/20 14:00:43 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/05/20 19:42:32 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,13 @@ void	go_eat(t_philo *philo)
 	next = &philo->rules->arr_philos[i_next - 1];
 	pthread_mutex_lock(&philo->fork);
 	pthread_mutex_lock(&next->fork);
-	if (get_time_now() - philo->time_eaten >= philo->rules->dying_time)
+/*	if (get_time_now() - philo->time_eaten >= philo->rules->dying_time)
 	{
 		philo->rules->dead_flag = DEAD;
+		pthread_mutex_unlock(&philo->fork);
+		pthread_mutex_unlock(&next->fork);
 		return ;
-	}
+	}*/
 	philo->time_eaten = get_time_now();
 	print_msg(philo->time_eaten, "is eating", philo, EATING);
 	philo->ate_n_times++;
