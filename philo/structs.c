@@ -6,7 +6,7 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 16:25:43 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/05/20 13:51:14 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/05/21 13:40:37 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	set_philo_prop(t_rules *rules)
 	while (i < rules->philos)
 	{
 		rules->arr_philos[i].i = 0;
+		rules->arr_philos[i].next = NULL;
 		rules->arr_philos[i].time_eaten = get_time_now();
 		rules->arr_philos[i].rules = rules;
 		pthread_mutex_init(&rules->arr_philos[i].fork, NULL);
@@ -48,7 +49,15 @@ void	set_philo_prop(t_rules *rules)
 		i++;
 	}
 }
-/*
+
+void	set_next(t_rules *rules, int i)
+{
+	if (i != rules->philos)
+		rules->arr_philos[i - 1].next = &(rules->arr_philos[i]);
+	else
+		rules->arr_philos[i - 1].next = &(rules->arr_philos[0]);
+}
+
 void	print_philos(t_rules *rules)
 {
 	int	i;
@@ -63,7 +72,7 @@ void	print_philos(t_rules *rules)
 		i++;
 	}
 }
-*/
+
 
 void	clear_all(t_rules *rules)
 {

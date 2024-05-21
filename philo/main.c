@@ -6,7 +6,7 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 11:15:50 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/05/20 15:17:13 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/05/21 17:08:53 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ int	main(int ac, char *av[])
 	}
 	set_rules(ac, av, &rules);
 	philos(&rules);
+	check_general_death(&rules);
 	clear_all(&rules);
 }

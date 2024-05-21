@@ -6,7 +6,7 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 00:14:59 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/05/20 15:21:17 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/05/21 14:35:02 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,15 +100,16 @@ void	print_msg(long int current_time, char *str, t_philo *philo, int status)
 		printf("\033[0;33m");
 	else if (status == DIED)
 		printf("\033[0;31m");
+	else if (status == FORK)
+		printf("\033[0;90m");
 	printf("%ld %i %s\n", current_time, philo->i, str);
 	printf("\033[0m");
 	pthread_mutex_unlock(&philo->rules->go_print);
 }
-/*
+
 void	print_test(long int current_time, char *str, t_philo *philo, int extra)
 {
 	pthread_mutex_lock(&philo->rules->go_print);
 	printf("%ld %i %s %i\n", current_time, philo->i, str, extra);
-	printf("\033[0m");
 	pthread_mutex_unlock(&philo->rules->go_print);
-}*/
+}
