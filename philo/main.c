@@ -6,7 +6,7 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 11:15:50 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/05/21 17:08:53 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/05/21 21:23:23 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,18 @@ int	main(int ac, char *av[])
 	}
 	set_rules(ac, av, &rules);
 	philos(&rules);
-	check_general_death(&rules);
+	join_threads(&rules);
 	clear_all(&rules);
+}
+
+void	join_threads(t_rules *rules)
+{
+	int	i;
+
+	i = 0;
+	while (i < rules->philos)
+	{
+		pthread_join(rules->arr_philos[i].ph, NULL);
+		i++;
+	}
 }

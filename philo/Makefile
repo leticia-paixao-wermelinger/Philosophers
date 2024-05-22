@@ -6,7 +6,7 @@
 #    By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/20 14:45:35 by lpaixao-          #+#    #+#              #
-#    Updated: 2024/05/21 17:00:16 by lpaixao-         ###   ########.fr        #
+#    Updated: 2024/05/21 21:43:54 by lpaixao-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,15 +45,15 @@ SLEEP = 200
 #NUMBERS = $(PHILOS) $(DIE) $(EAT) $(SLEEP) 7
 
 #NUMBERS					=	1 800 200 200   # The philosopher should not eat and should die
-#NUMBERS					=	5 800 200 200   # No philosopher should die.
+#NUMBERS					=	5 800 200 200   # No philosopher should die. -- c o tempo em 800, buga. C o tempo em 900, funciona. Problema de otimização!
 NUMBERS					=	5 800 200 200 7 # No philosopher should die.
 #NUMBERS					=	4 410 200 200   # No philosopher should die.
-#NUMBERS					=	4 310 200 100 7 # One philosopher should die. -- no one died
+#NUMBERS					=	4 310 200 100 7 # One philosopher should die.
 #NUMBERS					=	4 400 200 200 # No philosopher should die.
 
-#NUMBERS					=	4 310 200 100	#One philosopher should die
+#NUMBERS					=	4 10 200 100	#One philosopher should die
 
-#NUMBERS					=	5 410 200 100 7 # One philosopher should die. -- no one died
+#NUMBERS					=	5 410 200 100 7 # One philosopher should die.
 #NUMBERS					=	5 120 80 80 	# Moana tolds all will die
 #NUMBERS					=	2 200 50 50 1
 #NUMBERS					=	50 1000 60 60 1

@@ -20,23 +20,23 @@ void	go_eat(t_philo *philo)
 {
 	if (philo->i != philo->rules->philos)
 	{
-		pthread_mutex_lock(&philo->fork);
+		pthread_mutex_lock(&philo->mutex_fork);
 		print_msg(philo->time_eaten, "has taken a fork", philo, FORK);
-		pthread_mutex_lock(&philo->next->fork);
+		pthread_mutex_lock(&philo->next->mutex_fork);
 		print_msg(philo->time_eaten, "has taken a fork", philo, FORK);
 		eating(philo);
-		pthread_mutex_unlock(&philo->fork);
-		pthread_mutex_unlock(&philo->next->fork);
+		pthread_mutex_unlock(&philo->mutex_fork);
+		pthread_mutex_unlock(&philo->next->mutex_fork);
 	}
 	else
 	{
-		pthread_mutex_lock(&philo->next->fork);
+		pthread_mutex_lock(&philo->next->mutex_fork);
 		print_msg(philo->time_eaten, "has taken a fork", philo, FORK);
-		pthread_mutex_lock(&philo->fork);
+		pthread_mutex_lock(&philo->mutex_fork);
 		print_msg(philo->time_eaten, "has taken a fork", philo, FORK);
 		eating(philo);
-		pthread_mutex_unlock(&philo->next->fork);
-		pthread_mutex_unlock(&philo->fork);
+		pthread_mutex_unlock(&philo->next->mutex_fork);
+		pthread_mutex_unlock(&philo->mutex_fork);
 	}
 }
 
@@ -50,9 +50,9 @@ void	eating(t_philo *philo)
 
 void	*one_philo(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->fork);
+	pthread_mutex_lock(&philo->mutex_fork);
 	print_msg(philo->time_eaten, "has taken a fork", philo, FORK);
-	pthread_mutex_unlock(&philo->fork);
+	pthread_mutex_unlock(&philo->mutex_fork);
 	return (NULL);
 }
 

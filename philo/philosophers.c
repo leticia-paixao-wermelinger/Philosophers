@@ -6,7 +6,7 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 16:36:28 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/05/21 17:08:31 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/05/21 21:25:22 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,7 @@ void	philos(t_rules *rules)
 			break ;
 		i++;
 	}
-	i = 0;
-	while (i < rules->philos)
-	{
-		pthread_join(rules->arr_philos[i].ph, NULL);
-		i++;
-	}	
-//	check_general_death(rules);
+	check_general_death(rules);
 	if (rules->philos == 1)
 	{
 		print_msg(get_time_now(), "died", &(rules->arr_philos[0]), DIED);
@@ -60,10 +54,10 @@ void	*run_philo(void *philo)
 	ph = (t_philo *)philo;
 	if (ph->rules->philos == 1)
 		return (one_philo(philo));
-	while (ph->rules->dead_flag == ALIVE)
+	if (ph->i % 2 != 0)
+		usleep(200);
+	while (check_flag(ph->rules) == ALIVE)
 	{
-		if (ph->i % 2 != 0)
-			usleep(200);
 		if (check_flag(ph->rules) != ALIVE)
 			return (NULL);
 		go_eat(philo);
@@ -75,15 +69,15 @@ void	*run_philo(void *philo)
 		if (check_flag(ph->rules) != ALIVE)
 			return (NULL);
 		go_think(philo);
-		if (check_flag(ph->rules) != ALIVE)
-			return (NULL);
+/*		if (check_flag(ph->rules) != ALIVE)
+			return (NULL);*/
 	}
 	return (NULL);
 }
 
 int	check_death(t_philo *philo)
 {
-	if ((get_time_now() - philo->time_eaten >= philo->rules->dying_time) \
+	if (((get_time_now() - philo->time_eaten) >= philo->rules->dying_time)
 			&& philo->finished != FULL)
 	{
 		print_msg(get_time_now(), "died", philo, DIED);
@@ -97,19 +91,17 @@ void	check_general_death(t_rules *rules)
 	int	i;
 
 	i = 0;
-	print_test(get_time_now(), "está em check_general_death c/ dead_flag = ", &(rules->arr_philos[i]), rules->dead_flag);
-	while (rules->dead_flag != FULL)
+	while (rules->end_flag != FULL)
 	{
 		while (i < rules->philos)
 		{
 			pthread_mutex_lock(&rules->died);
-			print_test(get_time_now(), "travou a flag de morte", &(rules->arr_philos[i]), 0);
 			if (check_death(&(rules->arr_philos[i])) == DEAD)
 			{
-				rules->dead_flag = DEAD;
+				rules->end_flag = DEAD;
 				return ;
 			}
-			if (rules->dead_flag == FULL)
+			if (rules->end_flag == FULL)
 			{
 				pthread_mutex_unlock(&rules->died);
 				clear_all(rules);

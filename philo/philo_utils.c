@@ -6,7 +6,7 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 00:14:59 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/05/21 14:35:02 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/05/21 21:49:14 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ long long int	my_atoll(const char *nptr)
 	return (n * sign);
 }
 
-int	my_atoi(const char *nptr)
+long int	my_atol(const char *nptr)
 {
-	int	sign;
-	int	n;
-	int	i;
+	int			sign;
+	long int	n;
+	int			i;
 
 	sign = 1;
 	n = 0;

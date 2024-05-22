@@ -6,7 +6,7 @@
 /*   By: lpaixao- <lpaixao-@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 11:40:00 by lpaixao-          #+#    #+#             */
-/*   Updated: 2024/05/20 13:57:42 by lpaixao-         ###   ########.fr       */
+/*   Updated: 2024/05/21 21:20:03 by lpaixao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	check_flag(t_rules *rules)
 {
 	pthread_mutex_lock(&rules->died);
-	if (rules->dead_flag != ALIVE)
+	if (rules->end_flag != ALIVE)
 	{
 		pthread_mutex_unlock(&rules->died);
 		return (DEAD);
@@ -50,7 +50,7 @@ int	check_eaten_times(t_philo *philo)
 		philo->rules->nbr_ph_full--;
 		philo->finished = FULL;
 		if (philo->rules->nbr_ph_full == 0)
-			philo->rules->dead_flag = FULL;
+			philo->rules->end_flag = FULL;
 		pthread_mutex_unlock(&philo->rules->count_philos);
 		pthread_mutex_unlock(&philo->rules->died);
 		pthread_mutex_unlock(&philo->mutex_eaten_times);
