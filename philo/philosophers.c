@@ -24,11 +24,17 @@ void	philos(t_rules *rules)
 		i++;
 	}
 	check_general_death(rules);
-	if (rules->philos == 1)
+/*	i = 0;
+	printf("vai dar join nas threads c size valendo %i\n", rules->philos);
+	while (i < rules->philos)
 	{
-		print_msg(get_time_now(), "died", &(rules->arr_philos[0]), DIED);
-		return ;
+		printf("i vale %i\n", i);
+		if (pthread_join(rules->arr_philos[i].ph, NULL) != 0)
+			break ;
+		printf("Passou pela join\n");
+		i++;
 	}
+	printf("Saiu no while da join\n");*/
 }
 
 int	create_philo(t_rules *rules)
@@ -52,26 +58,34 @@ void	*run_philo(void *philo)
 	t_philo	*ph;
 
 	ph = (t_philo *)philo;
-	if (ph->rules->philos == 1)
-		return (one_philo(philo));
 	if (ph->i % 2 != 0)
 		usleep(200);
 	while (check_flag(ph->rules) == ALIVE)
 	{
-		if (check_flag(ph->rules) != ALIVE)
+		if (go_eat(philo) == ERROR)
+		{
+			printf("Vai encerrar a thread %i\n", ph->i);
 			return (NULL);
-		go_eat(philo);
+		}
 		if (check_eaten_times(philo) == FULL)
+		{
+			printf("Vai encerrar a thread %i\n", ph->i);
 			return (NULL);
+		}
 		if (check_flag(ph->rules) != ALIVE)
+		{
+			printf("Vai encerrar a thread %i\n", ph->i);
 			return (NULL);
+		}
 		go_sleep(philo);
 		if (check_flag(ph->rules) != ALIVE)
+		{
+			printf("Vai encerrar a thread %i\n", ph->i);
 			return (NULL);
+		}
 		go_think(philo);
-/*		if (check_flag(ph->rules) != ALIVE)
-			return (NULL);*/
 	}
+	printf("Vai encerrar a thread %i\n", ph->i);
 	return (NULL);
 }
 
@@ -98,7 +112,9 @@ void	check_general_death(t_rules *rules)
 			pthread_mutex_lock(&rules->died);
 			if (check_death(&(rules->arr_philos[i])) == DEAD)
 			{
+				printf("Vai transformar a end_flag para morte. Agora: end_flag == %i\n", rules->end_flag);
 				rules->end_flag = DEAD;
+				printf("Agora: end_flag == %i\n", rules->end_flag);
 				return ;
 			}
 			if (rules->end_flag == FULL)

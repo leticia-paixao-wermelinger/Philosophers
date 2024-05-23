@@ -35,7 +35,8 @@ enum e_status {
 	SLEEPING = 7,
 	THINKING = 8,
 	DIED = 9,
-	FULL = 10
+	FULL = 10,
+	EMPTY = 11
 };
 
 typedef pthread_mutex_t	t_mutex;
@@ -45,6 +46,7 @@ typedef struct s_philo
 {
 	pthread_t		ph;
 	int				fork_status;
+	t_mutex			mutex_fork_status;
 	t_mutex			mutex_fork;
 	int				i;
 	struct s_philo	*next;
@@ -87,9 +89,12 @@ void			*run_philo(void *philo);
 void			declare_philo(t_philo *philo);
 void			eat(t_philo *philo);
 void			clear_all(t_rules *rules);
-void			go_eat(t_philo *philo);
+int				go_eat(t_philo *philo);
+int				try_eat(t_philo *first, t_philo *seccond, t_philo *philo);
+int				lock_fork(t_philo *philo);
+void			unlock_fork(t_philo *philo);
 void			eating(t_philo *philo);
-void			*one_philo(t_philo *philo);
+//void			*one_philo(t_philo *philo);
 void			go_sleep(t_philo *philo);
 void			go_think(t_philo *philo);
 void			check_general_death(t_rules *rules);
@@ -101,5 +106,5 @@ void			print_msg(long int current_time, char *str, \
 			t_philo *philo, int status);
 void			print_philos(t_rules *rules);
 void			print_test(long int current_time, char *str, t_philo *philo, int extra);
-void			join_threads(t_rules *rules);
+void			join_threads(t_philo *arr, int size);
 #endif

@@ -102,9 +102,19 @@ void	print_msg(long int current_time, char *str, t_philo *philo, int status)
 		printf("\033[0;31m");
 	else if (status == FORK)
 		printf("\033[0;90m");
+	//pthread_mutex_lock(&philo->rules->died);
+	if (status == DIED && philo->rules->end_flag == DEAD)
+	{
+		printf("\033[0m");
+		printf("Entrou no erro de morte da função de impressão\n");
+		pthread_mutex_unlock(&philo->rules->go_print);
+		//pthread_mutex_unlock(&philo->rules->died);
+		return ;
+	}
 	printf("%ld %i %s\n", current_time, philo->i, str);
 	printf("\033[0m");
 	pthread_mutex_unlock(&philo->rules->go_print);
+	//pthread_mutex_unlock(&philo->rules->died);
 }
 
 void	print_test(long int current_time, char *str, t_philo *philo, int extra)

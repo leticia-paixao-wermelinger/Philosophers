@@ -16,28 +16,31 @@
  * usleep is in microseconds, input is in miliseconds
 */
 
-void	go_eat(t_philo *philo)
+int	go_eat(t_philo *philo)
 {
 	if (philo->i != philo->rules->philos)
-	{
-		pthread_mutex_lock(&philo->mutex_fork);
-		print_msg(philo->time_eaten, "has taken a fork", philo, FORK);
-		pthread_mutex_lock(&philo->next->mutex_fork);
-		print_msg(philo->time_eaten, "has taken a fork", philo, FORK);
-		eating(philo);
-		pthread_mutex_unlock(&philo->mutex_fork);
-		pthread_mutex_unlock(&philo->next->mutex_fork);
-	}
+		return (try_eat(philo, philo->next, philo));
 	else
-	{
-		pthread_mutex_lock(&philo->next->mutex_fork);
-		print_msg(philo->time_eaten, "has taken a fork", philo, FORK);
-		pthread_mutex_lock(&philo->mutex_fork);
-		print_msg(philo->time_eaten, "has taken a fork", philo, FORK);
-		eating(philo);
-		pthread_mutex_unlock(&philo->next->mutex_fork);
-		pthread_mutex_unlock(&philo->mutex_fork);
-	}
+		return (try_eat(philo->next, philo, philo));
+}
+
+int	try_eat(t_philo *first, t_philo *seccond, t_philo *philo)
+{
+	if (lock_fork(first) == NO_ERROR)
+		{
+			if (lock_fork(seccond) == NO_ERROR)
+			{
+				eating(philo);
+				unlock_fork(first);
+				unlock_fork(seccond);
+			}
+			else if (check_flag(philo->rules) != ALIVE)
+			{
+				unlock_fork(first);
+				return (ERROR);
+			}
+		}
+	return (NO_ERROR);
 }
 
 void	eating(t_philo *philo)
@@ -46,14 +49,6 @@ void	eating(t_philo *philo)
 	print_msg(philo->time_eaten, "is eating", philo, EATING);
 	philo->ate_n_times++;
 	usleep(philo->rules->eating_time * 1000);
-}
-
-void	*one_philo(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->mutex_fork);
-	print_msg(philo->time_eaten, "has taken a fork", philo, FORK);
-	pthread_mutex_unlock(&philo->mutex_fork);
-	return (NULL);
 }
 
 void	go_sleep(t_philo *philo)

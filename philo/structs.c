@@ -43,10 +43,11 @@ void	set_philo_prop(t_rules *rules)
 		rules->arr_philos[i].time_eaten = get_time_now();
 		rules->arr_philos[i].rules = rules;
 		rules->arr_philos[i].fork_status = UNLOCKED;
-		pthread_mutex_init(&rules->arr_philos[i].mutex_fork, NULL);
+		pthread_mutex_init(&(rules->arr_philos[i].mutex_fork_status), NULL);
+		pthread_mutex_init(&(rules->arr_philos[i].mutex_fork), NULL);
 		rules->arr_philos[i].ate_n_times = 0;
 		rules->arr_philos[i].finished = ALIVE;
-		pthread_mutex_init(&rules->arr_philos[i].mutex_eaten_times, NULL);
+		pthread_mutex_init(&(rules->arr_philos[i].mutex_eaten_times), NULL);
 		i++;
 	}
 }
@@ -80,6 +81,7 @@ void	clear_all(t_rules *rules)
 	int	i;
 
 	i = 0;
+	printf("Entrou na função de limpeza\n");
 	while (i < rules->philos)
 	{
 		pthread_mutex_destroy(&rules->arr_philos[i].mutex_fork);

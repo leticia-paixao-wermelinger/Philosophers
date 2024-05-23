@@ -39,18 +39,23 @@ int	main(int ac, char *av[])
 	}
 	set_rules(ac, av, &rules);
 	philos(&rules);
-	join_threads(&rules);
+	join_threads(rules.arr_philos, rules.philos);
 	clear_all(&rules);
+	printf("limpou tudo\n");
 }
 
-void	join_threads(t_rules *rules)
+void	join_threads(t_philo *arr, int size)
 {
 	int	i;
 
 	i = 0;
-	while (i < rules->philos)
+	printf("vai dar join nas threads c size valendo %i\n", size);
+	while (i < size)
 	{
-		pthread_join(rules->arr_philos[i].ph, NULL);
+		printf("i vale %i\n", i);
+		if (pthread_join(arr[i].ph, NULL) != 0)
+			return ;
 		i++;
 	}
+	printf("Saiu no while da join\n");
 }
