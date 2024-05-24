@@ -46,10 +46,10 @@ SLEEP = 200
 #NUMBERS = $(PHILOS) $(DIE) $(EAT) $(SLEEP) 7
 
 #NUMBERS					=	1 800 200 200   # The philosopher should not eat and should die
-#NUMBERS					=	5 800 200 200   # No philosopher should die. -- c o tempo em 800, buga. C o tempo em 900, funciona. Problema de otimização!
+NUMBERS					=	5 800 200 200   # No philosopher should die. -- c o tempo em 800, buga. C o tempo em 900, funciona. Problema de otimização!
 #NUMBERS					=	5 900 200 200 7 # No philosopher should die.
 #NUMBERS					=	4 410 200 200   # No philosopher should die.
-NUMBERS					=	4 310 200 100 7 # One philosopher should die.
+#NUMBERS					=	4 310 200 100 7 # One philosopher should die.
 #NUMBERS					=	4 400 200 200 # No philosopher should die.
 
 #NUMBERS					=	4 10 200 100	#One philosopher should die

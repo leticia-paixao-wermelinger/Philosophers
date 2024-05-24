@@ -18,7 +18,6 @@ int	lock_fork(t_philo *philo)
 	if (philo->fork_status == UNLOCKED)
 	{
 		pthread_mutex_lock(&philo->mutex_fork);
-		//printf("VAI IMPRIMIR Q PEGOU O GARFO \n");
 		print_msg(philo->time_eaten, "has taken a fork", philo, FORK);
 		philo->fork_status = LOCKED;
 		pthread_mutex_unlock(&(philo->mutex_fork_status));

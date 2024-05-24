@@ -14,12 +14,9 @@
 
 int	check_flag(t_rules *rules)
 {
-	//printf("Entrou na check_flag\n");
 	pthread_mutex_lock(&rules->died);
-	printf("Deu lock no mutex da check_flag\n");
 	if (rules->end_flag != ALIVE)
 	{
-		printf("Verificou morte na check_flag\n");
 		pthread_mutex_unlock(&rules->died);
 		return (DEAD);
 	}

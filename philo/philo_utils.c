@@ -106,7 +106,6 @@ void	print_msg(long int current_time, char *str, t_philo *philo, int status)
 	if (status == DIED && philo->rules->end_flag == DEAD)
 	{
 		printf("\033[0m");
-		printf("Entrou no erro de morte da função de impressão\n");
 		pthread_mutex_unlock(&philo->rules->go_print);
 		//pthread_mutex_unlock(&philo->rules->died);
 		return ;

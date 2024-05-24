@@ -63,29 +63,16 @@ void	*run_philo(void *philo)
 	while (check_flag(ph->rules) == ALIVE)
 	{
 		if (go_eat(philo) == ERROR)
-		{
-			printf("Vai encerrar a thread %i\n", ph->i);
 			return (NULL);
-		}
 		if (check_eaten_times(philo) == FULL)
-		{
-			printf("Vai encerrar a thread %i\n", ph->i);
 			return (NULL);
-		}
 		if (check_flag(ph->rules) != ALIVE)
-		{
-			printf("Vai encerrar a thread %i\n", ph->i);
 			return (NULL);
-		}
 		go_sleep(philo);
 		if (check_flag(ph->rules) != ALIVE)
-		{
-			printf("Vai encerrar a thread %i\n", ph->i);
 			return (NULL);
-		}
 		go_think(philo);
 	}
-	printf("Vai encerrar a thread %i\n", ph->i);
 	return (NULL);
 }
 
@@ -112,9 +99,8 @@ void	check_general_death(t_rules *rules)
 			pthread_mutex_lock(&rules->died);
 			if (check_death(&(rules->arr_philos[i])) == DEAD)
 			{
-				printf("Vai transformar a end_flag para morte. Agora: end_flag == %i\n", rules->end_flag);
 				rules->end_flag = DEAD;
-				printf("Agora: end_flag == %i\n", rules->end_flag);
+				pthread_mutex_unlock(&rules->died);
 				return ;
 			}
 			if (rules->end_flag == FULL)

@@ -27,12 +27,15 @@ int	go_eat(t_philo *philo)
 int	try_eat(t_philo *first, t_philo *seccond, t_philo *philo)
 {
 	if (lock_fork(first) == NO_ERROR)
+	{
+		while (check_flag(philo->rules) == ALIVE)
 		{
 			if (lock_fork(seccond) == NO_ERROR)
 			{
 				eating(philo);
 				unlock_fork(first);
 				unlock_fork(seccond);
+				return (NO_ERROR);
 			}
 			else if (check_flag(philo->rules) != ALIVE)
 			{
@@ -40,7 +43,9 @@ int	try_eat(t_philo *first, t_philo *seccond, t_philo *philo)
 				return (ERROR);
 			}
 		}
-	return (NO_ERROR);
+		unlock_fork(first);
+	}
+	return (ERROR);
 }
 
 void	eating(t_philo *philo)

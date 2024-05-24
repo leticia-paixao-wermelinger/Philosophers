@@ -81,7 +81,6 @@ void	clear_all(t_rules *rules)
 	int	i;
 
 	i = 0;
-	printf("Entrou na função de limpeza\n");
 	while (i < rules->philos)
 	{
 		pthread_mutex_destroy(&rules->arr_philos[i].mutex_fork);
