@@ -58,12 +58,15 @@ void	*run_philo(void *philo)
 	t_philo	*ph;
 
 	ph = (t_philo *)philo;
+	//ph->time_eaten = get_time_now();
 	if (ph->i % 2 != 0)
-		usleep(200);
+		usleep(100);
 	while (check_flag(ph->rules) == ALIVE)
 	{
+		//printf("Está no loop do filo %i\n", ph->i);
 		if (go_eat(philo) == ERROR)
 			return (NULL);
+		//printf("%i terminou de comer\n", ph->i);
 		if (check_eaten_times(philo) == FULL)
 			return (NULL);
 		if (check_flag(ph->rules) != ALIVE)
@@ -91,13 +94,13 @@ void	check_general_death(t_rules *rules)
 {
 	int	i;
 
-	i = 0;
 	while (rules->end_flag != FULL)
 	{
-		while (i < rules->philos)
+		i = 0;
+		while ((i < rules->philos) && (rules->end_flag != FULL))
 		{
 			pthread_mutex_lock(&rules->died);
-			if (check_death(&(rules->arr_philos[i])) == DEAD)
+			if ((check_death(&(rules->arr_philos[i])) == DEAD) && rules->end_flag != FULL)
 			{
 				rules->end_flag = DEAD;
 				pthread_mutex_unlock(&rules->died);
@@ -106,12 +109,10 @@ void	check_general_death(t_rules *rules)
 			if (rules->end_flag == FULL)
 			{
 				pthread_mutex_unlock(&rules->died);
-				clear_all(rules);
 				return ;
 			}
 			pthread_mutex_unlock(&rules->died);
 			i++;
 		}
-		i = 0;
 	}
 }

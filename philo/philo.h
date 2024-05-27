@@ -91,7 +91,7 @@ void			eat(t_philo *philo);
 void			clear_all(t_rules *rules);
 int				go_eat(t_philo *philo);
 int				try_eat(t_philo *first, t_philo *seccond, t_philo *philo);
-int				lock_fork(t_philo *philo);
+int				lock_fork(t_philo *ph_fork, t_philo *ph_acting);
 void			unlock_fork(t_philo *philo);
 void			eating(t_philo *philo);
 //void			*one_philo(t_philo *philo);
@@ -104,6 +104,7 @@ long int		get_time_now(void);
 int				check_eaten_times(t_philo *philo);
 void			print_msg(long int current_time, char *str, \
 			t_philo *philo, int status);
+void			print_color(int status);
 void			print_philos(t_rules *rules);
 void			print_test(long int current_time, char *str, t_philo *philo, int extra);
 void			join_threads(t_philo *arr, int size);

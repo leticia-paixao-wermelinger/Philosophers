@@ -92,33 +92,25 @@ void	my_bzero(void *s, size_t n)
 void	print_msg(long int current_time, char *str, t_philo *philo, int status)
 {
 	pthread_mutex_lock(&philo->rules->go_print);
-	if (status == EATING)
-		printf("\033[0;32m");
-	else if (status == SLEEPING)
-		printf("\033[0;34m");
-	else if (status == THINKING)
-		printf("\033[0;33m");
-	else if (status == DIED)
-		printf("\033[0;31m");
-	else if (status == FORK)
-		printf("\033[0;90m");
-	//pthread_mutex_lock(&philo->rules->died);
+	print_color(status);
+	if (status != DIED && philo->rules->end_flag != DEAD)
+		pthread_mutex_lock(&philo->rules->died);
 	if (status == DIED && philo->rules->end_flag == DEAD)
 	{
 		printf("\033[0m");
 		pthread_mutex_unlock(&philo->rules->go_print);
-		//pthread_mutex_unlock(&philo->rules->died);
 		return ;
 	}
 	printf("%ld %i %s\n", current_time, philo->i, str);
 	printf("\033[0m");
 	pthread_mutex_unlock(&philo->rules->go_print);
-	//pthread_mutex_unlock(&philo->rules->died);
+	if (status != DIED && philo->rules->end_flag != DEAD)
+		pthread_mutex_unlock(&philo->rules->died);
 }
-
+/*
 void	print_test(long int current_time, char *str, t_philo *philo, int extra)
 {
 	pthread_mutex_lock(&philo->rules->go_print);
 	printf("%ld %i %s %i\n", current_time, philo->i, str, extra);
 	pthread_mutex_unlock(&philo->rules->go_print);
-}
+}*/

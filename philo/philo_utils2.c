@@ -60,3 +60,17 @@ int	check_eaten_times(t_philo *philo)
 	pthread_mutex_unlock(&philo->rules->died);
 	return (EMPTY);
 }
+
+void	print_color(int status)
+{
+	if (status == EATING)
+		printf("\033[0;32m");
+	else if (status == SLEEPING)
+		printf("\033[0;34m");
+	else if (status == THINKING)
+		printf("\033[0;33m");
+	else if (status == DIED)
+		printf("\033[0;31m");
+	else if (status == FORK)
+		printf("\033[0;90m");
+}
