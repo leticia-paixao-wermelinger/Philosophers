@@ -42,16 +42,3 @@ int	main(int ac, char *av[])
 	join_threads(rules.arr_philos, rules.philos);
 	clear_all(&rules);
 }
-
-void	join_threads(t_philo *arr, int size)
-{
-	int	i;
-
-	i = 0;
-	while (i < size)
-	{
-		if (pthread_join(arr[i].ph, NULL) != 0)
-			return ;
-		i++;
-	}
-}

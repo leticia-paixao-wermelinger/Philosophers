@@ -31,6 +31,7 @@ structs.c \
 philosophers.c \
 actions.c \
 philo_utils2.c \
+philo_utils3.c \
 mutexes.c
 
 OBJS = ${SRCS:.c=.o}
@@ -46,11 +47,11 @@ SLEEP = 200
 #NUMBERS = $(PHILOS) $(DIE) $(EAT) $(SLEEP) 7
 
 #NUMBERS					=	1 800 200 200   # The philosopher should not eat and should die
-#NUMBERS					=	5 800 200 200   # No philosopher should die. -- c o tempo em 800, buga. C o tempo em 900, funciona. Problema de otimização!
+#NUMBERS					=	5 800 200 200   # No philosopher should die.
 #NUMBERS					=	5 900 200 200 7 # No philosopher should die.
 #NUMBERS					=	4 410 200 200   # No philosopher should die.
-#NUMBERS					=	4 310 200 100 7 # One philosopher should die.
-NUMBERS					=	4 400 200 200 # No philosopher should die. --DEU RUIM, MORREU
+NUMBERS					=	4 310 200 100 7 # One philosopher should die.
+#NUMBERS					=	4 400 200 200 # No philosopher should die. -- DEU RUIM
 
 #NUMBERS					=	4 10 200 100	#One philosopher should die
 
@@ -59,6 +60,18 @@ NUMBERS					=	4 400 200 200 # No philosopher should die. --DEU RUIM, MORREU
 #NUMBERS					=	2 200 50 50 1
 #NUMBERS					=	50 1000 60 60 1
 #NUMBERS					=	2 110 50 50 2
+
+#NUMBERS					=	4 200 205 200	# One should die
+#NUMBERS					=	4 410 200 200 10	# No one should die. Stop after 10
+#NUMBERS					=	-5 600 200 200	# ERROR - CRASH
+#NUMBERS					=	5 -5 200 200	# ERROR - CRASH
+#NUMBERS					=	4 600 -5 200	# ERROR - CRASH
+#NUMBERS					=	5 600 200 -5	# ERROR - CRASH
+#NUMBERS					=	4 600 200 200 -5	# ERROR - CRASH
+#NUMBERS					=	5 600 150 150	# No one should die
+#NUMBERS					=	4 410 200 200	# No one should die
+#NUMBERS					=	100 800 200 200	# No one should die -- DEU RUIM - 1 MORREU
+#NUMBERS					=	105 800 200 200	# No one should die -- DEU RUIM - 1 MORREU
 
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@
@@ -86,10 +99,11 @@ val: re
 	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) $(NUMBERS)
 
 hell: re
-	valgrind --tool=helgrind ./$(NAME) $(NUMBERS)
+	valgrind --tool=helgrind -s ./$(NAME) $(NUMBERS)
+#  
 
 count: re
-	./$(NAME) $(NUMBERS) | grep "5 is eating" | wc -l
+	./$(NAME) $(NUMBERS) | grep "1 is eating" | wc -l
 
 norm:
 		@echo "$(COLOUR_BLUE)Passando a Norminette com a flag -R CheckForbiddenSourceHeader: $(COLOUR_END)"

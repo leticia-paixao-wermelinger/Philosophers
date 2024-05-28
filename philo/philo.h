@@ -108,4 +108,5 @@ void			print_color(int status);
 void			print_philos(t_rules *rules);
 void			print_test(long int current_time, char *str, t_philo *philo, int extra);
 void			join_threads(t_philo *arr, int size);
+void			improved_usleep(long int wait_time);
 #endif

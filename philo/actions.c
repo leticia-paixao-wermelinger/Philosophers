@@ -56,17 +56,24 @@ void	eating(t_philo *philo)
 	philo->time_eaten = get_time_now();
 	print_msg(philo->time_eaten, "is eating", philo, EATING);
 	philo->ate_n_times++;
-	usleep(philo->rules->eating_time * 1000);
+	improved_usleep(philo->rules->eating_time);
 }
 
 void	go_sleep(t_philo *philo)
 {
 	print_msg(get_time_now(), "is sleeping", philo, SLEEPING);
-	usleep(philo->rules->sleeping_time * 1000);
+	improved_usleep(philo->rules->sleeping_time);
 }
 
 void	go_think(t_philo *philo)
 {
+	long int	time_to_think;
+
 	print_msg(get_time_now(), "is thinking", philo, THINKING);
-	usleep(200);
+	if (philo->rules->philos % 2 == 0)
+		return ;
+	time_to_think = (philo->rules->eating_time * 2) - philo->rules->sleeping_time;
+	if (time_to_think < 0)
+		time_to_think = 0;
+	improved_usleep(time_to_think);
 }
