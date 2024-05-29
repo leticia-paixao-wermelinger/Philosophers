@@ -18,7 +18,7 @@
 
 int	go_eat(t_philo *philo)
 {
-	if (philo->i != philo->rules->philos)
+	if (philo->i % 2 == 0)
 		return (try_eat(philo, philo->next, philo));
 	else
 		return (try_eat(philo->next, philo, philo));

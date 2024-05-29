@@ -91,21 +91,13 @@ void	my_bzero(void *s, size_t n)
 
 void	print_msg(long int current_time, char *str, t_philo *philo, int status)
 {
+	if (check_flag(philo->rules) == DEAD)
+		return ;
 	pthread_mutex_lock(&philo->rules->go_print);
 	print_color(status);
-	if (status != DIED && philo->rules->end_flag != DEAD)
-		pthread_mutex_lock(&philo->rules->died);
-	if (status == DIED && philo->rules->end_flag == DEAD)
-	{
-		printf("\033[0m");
-		pthread_mutex_unlock(&philo->rules->go_print);
-		return ;
-	}
 	printf("%ld %i %s\n", current_time, philo->i, str);
 	printf("\033[0m");
 	pthread_mutex_unlock(&philo->rules->go_print);
-	if (status != DIED && philo->rules->end_flag != DEAD)
-		pthread_mutex_unlock(&philo->rules->died);
 }
 /*
 void	print_test(long int current_time, char *str, t_philo *philo, int extra)

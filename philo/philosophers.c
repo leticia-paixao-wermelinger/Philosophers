@@ -73,7 +73,7 @@ int	check_death(t_philo *philo)
 	if (((get_time_now() - philo->time_eaten) >= philo->rules->dying_time)
 			&& philo->finished != FULL)
 	{
-		print_msg(get_time_now(), "died", philo, DIED);
+		print_death(get_time_now(), "died", philo, DIED);
 		return (DEAD);
 	}
 	return (ALIVE);
