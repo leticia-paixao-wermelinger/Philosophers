@@ -17,7 +17,6 @@ int	lock_fork(t_philo *ph_fork, t_philo *ph_acting)
 	pthread_mutex_lock(&(ph_fork->mutex_fork_status));
 	if (ph_fork->fork_status == UNLOCKED)
 	{
-		//printf("%i entrou na lock_fork com status == UNLOCKED\n", ph_acting->i);
 		pthread_mutex_lock(&ph_fork->mutex_fork);
 		print_msg(ph_acting->time_eaten, "has taken a fork", ph_acting, FORK);
 		ph_fork->fork_status = LOCKED;
@@ -26,7 +25,6 @@ int	lock_fork(t_philo *ph_fork, t_philo *ph_acting)
 	}
 	else if (ph_fork->fork_status == LOCKED)
 	{
-		//printf("%i entrou na lock_fork com status == LOCKED\n", ph_acting->i);
 		pthread_mutex_unlock(&(ph_fork->mutex_fork_status));
 		return (ERROR);
 	}
@@ -36,8 +34,8 @@ int	lock_fork(t_philo *ph_fork, t_philo *ph_acting)
 
 void	unlock_fork(t_philo *philo)
 {
-	pthread_mutex_lock(&(philo->mutex_fork_status));
 	pthread_mutex_unlock(&philo->mutex_fork);
+	pthread_mutex_lock(&(philo->mutex_fork_status));
 	philo->fork_status = UNLOCKED;
 	pthread_mutex_unlock(&(philo->mutex_fork_status));
 }

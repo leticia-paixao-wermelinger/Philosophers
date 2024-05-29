@@ -35,8 +35,8 @@ int	try_eat(t_philo *first, t_philo *seccond, t_philo *philo)
 				if (lock_fork(seccond, philo) == NO_ERROR)
 				{
 					eating(philo);
-					unlock_fork(first);
 					unlock_fork(seccond);
+					unlock_fork(first);
 					return (NO_ERROR);
 				}
 				else if (check_flag(philo->rules) != ALIVE)
@@ -72,7 +72,8 @@ void	go_think(t_philo *philo)
 	print_msg(get_time_now(), "is thinking", philo, THINKING);
 	if (philo->rules->philos % 2 == 0)
 		return ;
-	time_to_think = (philo->rules->eating_time * 2) - philo->rules->sleeping_time;
+	time_to_think = (philo->rules->eating_time * 2) \
+			- philo->rules->sleeping_time;
 	if (time_to_think < 0)
 		time_to_think = 0;
 	improved_usleep(time_to_think);

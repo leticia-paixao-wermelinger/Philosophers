@@ -70,11 +70,10 @@ void	print_philos(t_rules *rules)
 		printf("Filófoso %d:\n", rules->arr_philos[i].i);
 		printf("Identificador da thread: %ld\n", (long)rules->arr_philos[i].ph);
 		printf("Identificador do mutex: %p\n", \
-				(void*)&rules->arr_philos[i].mutex_fork);
+			(void *)&rules->arr_philos[i].mutex_fork);
 		i++;
 	}
 }
-
 
 void	clear_all(t_rules *rules)
 {

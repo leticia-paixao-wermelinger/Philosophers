@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "philo.h"
-
 /*
 	ac == 2 -> number of philosophers;
 	ac == 3 -> time_to_die (milliseconds);
@@ -19,20 +18,7 @@
 	ac == 5 -> time_to_sleep (milliseconds);
 	(OPTIONAL) ac == 6 -> number_of_times_each_philosopher_must_eat;
 */
-
-static void	print_philos(t_rules *rules)
-{
-	int	i;
-
-	i = 0;
-	while (i < rules->philos)
-	{
-		printf("Filófoso %d:\n", rules->arr_philos[i].i);
-		printf("Identificador da thread: %ld\n", (long)rules->arr_philos[i].ph);
-		printf("Identificador do mutex: %p\n", &(rules->arr_philos[i].mutex_fork));
-		i++;
-	}
-}
+//static void	print_philos(t_rules *rules);
 
 int	main(int ac, char *av[])
 {
@@ -53,7 +39,25 @@ int	main(int ac, char *av[])
 	}
 	set_rules(ac, av, &rules);
 	philos(&rules);
-	print_philos(&rules);
 	join_threads(rules.arr_philos, rules.philos);
 	clear_all(&rules);
 }
+
+/*
+static void	print_philos(t_rules *rules)
+{
+	int	i;
+
+	i = 0;
+	while (i < rules->philos)
+	{
+		printf("Filófoso %d:\n", rules->arr_philos[i].i);
+		printf("Identificador da thread: %ld\n", (long)rules->arr_philos[i].ph);
+		printf("Identificador do mutex principal: %p\n", \ 
+				&(rules->arr_philos[i].mutex_fork));
+		printf("Identificador do mutex do status: %p\n", \
+				&(rules->arr_philos[i].mutex_fork_status));
+		i++;
+	}
+}
+*/

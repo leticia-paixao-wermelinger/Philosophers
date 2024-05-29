@@ -50,8 +50,7 @@ SLEEP = 200
 #NUMBERS					=	5 800 200 200   # No philosopher should die.
 #NUMBERS					=	5 900 200 200 7 # No philosopher should die.
 #NUMBERS					=	4 410 200 200   # No philosopher should die.
-NUMBERS					=	4 310 200 100 7 # One philosopher should die.
-#NUMBERS					=	4 400 200 200 # No philosopher should die. -- DEU RUIM
+#NUMBERS					=	4 310 200 100 7 # One philosopher should die.
 
 #NUMBERS					=	4 10 200 100	#One philosopher should die
 
@@ -70,8 +69,8 @@ NUMBERS					=	4 310 200 100 7 # One philosopher should die.
 #NUMBERS					=	4 600 200 200 -5	# ERROR - CRASH
 #NUMBERS					=	5 600 150 150	# No one should die
 #NUMBERS					=	4 410 200 200	# No one should die
-#NUMBERS					=	100 800 200 200	# No one should die -- DEU RUIM - 1 MORREU
-#NUMBERS					=	105 800 200 200	# No one should die -- DEU RUIM - 1 MORREU
+#NUMBERS					=	100 800 200 200	# No one should die
+NUMBERS					=	105 800 200 200	# No one should die
 
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@

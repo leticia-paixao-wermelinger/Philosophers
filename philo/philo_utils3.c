@@ -34,7 +34,8 @@ void	improved_usleep(long int wait_time)
 		usleep(100);
 }
 
-void	print_death(long int current_time, char *str, t_philo *philo, int status)
+void	print_death(long int current_time, char *str, \
+			t_philo *philo, int status)
 {
 	pthread_mutex_lock(&philo->rules->go_print);
 	print_color(status);
