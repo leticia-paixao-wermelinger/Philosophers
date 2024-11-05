@@ -1,3 +1,5 @@
+<img src="./cover-philosophers.png"/>
+
 # 🤔 Philosophers 🤔
 
 This project is a reproduction of the famous Dining Philosophers problem, focusing on Operating System synchronization. It uses threads and mutexes to manage concurrent programming effectively.
